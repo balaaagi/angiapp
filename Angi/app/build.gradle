@@ -9,7 +9,10 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        buildConfigField("String","KAIROS_APP_ID",KAIROS_APP_ID)
+        buildConfigField("String","KAIROS_API_KEY",KAIROS_API_KEY)
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {

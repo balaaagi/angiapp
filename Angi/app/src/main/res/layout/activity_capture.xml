@@ -29,5 +29,17 @@
         app:ckJpegQuality="100"
         app:ckMethod="standard" />
 
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:text="Type Movement To Authenticate"
+        android:textStyle="bold"
+        android:id="@+id/task1_tview"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

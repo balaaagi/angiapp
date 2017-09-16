@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flurgle.camerakit.CameraListener;
@@ -22,7 +23,10 @@ import com.flurgle.camerakit.CameraView;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import me.balaaagi.angi.utils.AngiUtils;
 
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
 
@@ -36,6 +40,9 @@ public class CaptureActivity extends AppCompatActivity implements View.OnLayoutC
     private Uri fileUri;
     CameraView camera;
     Button clickButton;
+    TextView task1_tview;
+    private Object[] randomOrder;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +50,16 @@ public class CaptureActivity extends AppCompatActivity implements View.OnLayoutC
         setContentView(R.layout.activity_capture);
         camera= (CameraView) findViewById(R.id.camera);
         camera.addOnLayoutChangeListener(this);
+        task1_tview= (TextView) findViewById(R.id.task1_tview);
+        randomOrder=AngiUtils.getDualAuthenticationTypeOrder();
         clickButton= (Button) findViewById(R.id.clicktoAunthenticate);
+        if((int)randomOrder[0]==1){
+            task1_tview.setText("Open Ur Mouth And Capture");
+        }else if((int)randomOrder[0]==2){
+            task1_tview.setText("Tilt Your Head Left Side And Capture");
+        }else{
+            task1_tview.setText("Tilt Your Head Right Side And Capture");
+        }
         clickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,8 +81,9 @@ public class CaptureActivity extends AppCompatActivity implements View.OnLayoutC
                 ResultHolder.setImage(bitmap);
                 ResultHolder.setNativeCaptureSize(camera.getPreviewSize());
                 ResultHolder.setTimeToCallback(callbackTime - startTime);
-                Intent intent = new Intent(CaptureActivity.this, PreviewActivity.class);
-                startActivity(intent);
+                Intent secondTaskintent = new Intent(CaptureActivity.this, PreviewActivity.class);
+                secondTaskintent.putExtra("order",randomOrder);
+                startActivity(secondTaskintent);
             }
         });
         camera.captureImage();
