@@ -13,6 +13,7 @@ public class PreviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_preview);
         previewImage= (ImageView) findViewById(R.id.capturedImagePreview);
         Bitmap bitmap = ResultHolder.getImage();
+
         if (bitmap == null) {
             finish();
             return;

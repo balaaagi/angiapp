@@ -4,14 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="15dp"
-    tools:context="me.balaaagi.angi.CaptureActivity">
+    tools:context="me.balaaagi.angi.CaptureActivity"
+    android:orientation="vertical">
 
-    <ImageView
+
+    <Button
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:id="@+id/capturedImagePreview"
-        android:visibility="gone"
-        android:layout_height="match_parent" />
+        android:text="Click and Authentice"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/clicktoAunthenticate"/>
+
+    <com.flurgle.camerakit.CameraView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+        app:ckCropOutput="false"
+        app:ckFacing="front"
+        app:ckFlash="off"
+        app:ckFocus="tapWithMarker"
+        app:ckJpegQuality="100"
+        app:ckMethod="standard" />
 
 
 </LinearLayout>
