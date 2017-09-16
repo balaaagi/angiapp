@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    tools:context="me.balaaagi.angi.TripDetailsActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:text="Trip Details"
+        android:textSize="45dp"
+        android:textColor="@color/colorAccent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="TRIP ID"
+        android:id="@+id/tripId"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/driverName"
+        android:hint="Driver Name"/>
+
+    <Button
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Face Authenticate"
+        android:textColor="@color/colorAccent"
+        android:background="@color/colorPrimary"
+        />
+
+
+</LinearLayout>

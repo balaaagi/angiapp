@@ -4,17 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/lynkYello"
     tools:context="me.balaaagi.angi.MainActivity">
 
+    <ImageView
+        android:layout_marginTop="75dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/lynklogo"/>
 
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorAccent"
+        android:text="Angi"/>
 
     <Button
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="150dp"
         android:layout_width="250dp"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
         android:background="@color/colorPrimary"
-        android:text="Authenticate"/>
+        android:id="@+id/tripDetailsButton"
+        android:text="Enter Trip Details"/>
 
 </LinearLayout>
