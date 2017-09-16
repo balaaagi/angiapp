@@ -1,9 +1,13 @@
 package me.balaaagi.angi.network;
 
+import java.util.Map;
+
 import me.balaaagi.angi.network.models.DetectKairosResponse;
 import me.balaaagi.angi.network.models.DetectRequestModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 
 /**
@@ -13,7 +17,7 @@ import retrofit2.http.POST;
 public interface KairosApiInterface {
 
     @POST("detect")
-    Call<DetectKairosResponse> detectFacialFeatures(@Body DetectRequestModel requestModel);
+    Call<DetectKairosResponse> detectFacialFeatures(@HeaderMap Map<String,String> headers, @Body DetectRequestModel requestModel);
 
 
 }

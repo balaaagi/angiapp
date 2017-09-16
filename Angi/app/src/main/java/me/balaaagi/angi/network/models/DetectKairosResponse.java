@@ -17,7 +17,19 @@ public class DetectKairosResponse {
     @SerializedName("images")
     List<KairosDetectImages> images;
 
+    public List<KairosError> getErrors() {
+        return errors;
+    }
 
+    public void setErrors(List<KairosError> errors) {
+        this.errors = errors;
+    }
 
+    public List<KairosDetectImages> getImages() {
+        return images;
+    }
 
+    public void setImages(List<KairosDetectImages> images) {
+        this.images = images;
+    }
 }
