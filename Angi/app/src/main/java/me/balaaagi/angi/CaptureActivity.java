@@ -56,9 +56,9 @@ public class CaptureActivity extends AppCompatActivity implements View.OnLayoutC
         if((int)randomOrder[0]==1){
             task1_tview.setText("Open Ur Mouth And Capture");
         }else if((int)randomOrder[0]==2){
-            task1_tview.setText("Tilt Your Head Left Side And Capture");
+            task1_tview.setText("Turn Your Head To ur Left/Right Side And Capture");
         }else{
-            task1_tview.setText("Tilt Your Head Right Side And Capture");
+            task1_tview.setText("Lift Your Head Up/Below  And Capture");
         }
         clickButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +82,7 @@ public class CaptureActivity extends AppCompatActivity implements View.OnLayoutC
                 ResultHolder.setNativeCaptureSize(camera.getPreviewSize());
                 ResultHolder.setTimeToCallback(callbackTime - startTime);
                 Intent secondTaskintent = new Intent(CaptureActivity.this, PreviewActivity.class);
-                secondTaskintent.putExtra("order",randomOrder);
+                secondTaskintent.putExtra("order",(int)randomOrder[0]);
                 startActivity(secondTaskintent);
             }
         });

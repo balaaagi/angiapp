@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 /**
@@ -17,7 +18,7 @@ import retrofit2.http.POST;
 public interface KairosApiInterface {
 
     @POST("detect")
-    Call<DetectKairosResponse> detectFacialFeatures(@HeaderMap Map<String,String> headers, @Body DetectRequestModel requestModel);
+    Call<DetectKairosResponse> detectFacialFeatures(@Header("Content-Type") String content_type,@Header("app_id") String app_id,@Header("app_key") String app_key, @Body DetectRequestModel requestModel);
 
 
 }

@@ -34,6 +34,18 @@ public class Attributes {
     @Expose
     private String glasses;
 
+    public Attributes(String lips, Double asian, Gender gender, Integer age, Double hispanic, Double other, Double black, Double white, String glasses) {
+        this.lips = lips;
+        this.asian = asian;
+        this.gender = gender;
+        this.age = age;
+        this.hispanic = hispanic;
+        this.other = other;
+        this.black = black;
+        this.white = white;
+        this.glasses = glasses;
+    }
+
     public String getLips() {
         return lips;
     }
@@ -106,4 +118,8 @@ public class Attributes {
         this.glasses = glasses;
     }
 
+    @Override
+    public String toString() {
+        return getGlasses();
+    }
 }
