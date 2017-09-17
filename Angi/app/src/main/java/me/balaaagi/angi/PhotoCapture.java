@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -65,8 +66,10 @@ public class PhotoCapture extends AppCompatActivity implements View.OnLayoutChan
                 ResultHolder.setImage(bitmap);
                 ResultHolder.setNativeCaptureSize(photoCapture.getPreviewSize());
                 ResultHolder.setTimeToCallback(callbackTime - startTime);
-                capturedFace=bitmap;
-                boolean authenticated=authenticateFace(capturedFace);
+                capturedFace=ResultHolder.getImage();
+                Intent authenticateProcess = new Intent(PhotoCapture.this, ValidateAuthenticateActivity.class);
+                startActivity(authenticateProcess);
+//                boolean authenticated=authenticateFace(capturedFace);
             }
         });
         photoCapture.captureImage();
@@ -76,6 +79,8 @@ public class PhotoCapture extends AppCompatActivity implements View.OnLayoutChan
     private boolean authenticateFace(Bitmap capturedFace) {
         KairosApiInterface kairosClient= APIClient.getRetrofitClient().create(KairosApiInterface.class);
         Call<RecognizeKairosResponse> recognizeKairosResponseCall=kairosClient.recognizeFace("application/json",BuildConfig.KAIROS_APP_ID,BuildConfig.KAIROS_API_KEY,new RecognizeRequestModel(AngiUtils.bitMapToBase64(capturedFace),BuildConfig.KAIROS_GALLERY));
+        Log.d("Photo",recognizeKairosResponseCall.request().url().toString());
+        Log.d("Photo",recognizeKairosResponseCall.request().headers().toString());
         taskValidationProgress.setIndeterminate(false);
         taskValidationProgress.setMessage("Validating Your Face ...");
         taskValidationProgress.setTitle("Angi App");
@@ -86,6 +91,8 @@ public class PhotoCapture extends AppCompatActivity implements View.OnLayoutChan
                 List<KairosError> errors = response.body().getErrors();
                 List<KairosRecognizeImages> imagesResponse = response.body().getImages();
                 if(imagesResponse!=null){
+                    Log.d("Photo",imagesResponse.get(0).getTransaction().getStatus());
+
                     if(imagesResponse.get(0).getTransaction().getStatus().equals("success")){
                         taskValidationProgress.dismiss();
                         Intent photoAuthenticate=new Intent(PhotoCapture.this,SuccessActivity.class);

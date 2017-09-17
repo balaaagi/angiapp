@@ -27,7 +27,8 @@
         <activity android:name=".PreviewActivity" />
         <activity android:name=".ContactSupportActvity" />
         <activity android:name=".PhotoCapture" />
-        <activity android:name=".SuccessActivity"></activity>
+        <activity android:name=".SuccessActivity" />
+        <activity android:name=".ValidateAuthenticateActivity"></activity>
     </application>
 
 </manifest>
