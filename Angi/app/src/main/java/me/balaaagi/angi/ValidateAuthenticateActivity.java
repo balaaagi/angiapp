@@ -64,6 +64,7 @@ public class ValidateAuthenticateActivity extends AppCompatActivity {
                     if(imagesResponse.get(0).getTransaction().getStatus().equals("success")){
                         taskValidationProgress.dismiss();
                         Intent photoAuthenticate=new Intent(ValidateAuthenticateActivity.this,SuccessActivity.class);
+                        photoAuthenticate.putExtra("name",imagesResponse.get(0).getCandidates().get(0).getSubject_id());
                         startActivity(photoAuthenticate);
                     }else{
                         taskValidationProgress.dismiss();
