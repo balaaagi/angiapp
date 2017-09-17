@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -64,10 +65,11 @@ public class PhotoCapture extends AppCompatActivity implements View.OnLayoutChan
                 ResultHolder.setNativeCaptureSize(photoCapture.getPreviewSize());
                 ResultHolder.setTimeToCallback(callbackTime - startTime);
                 capturedFace=bitmap;
+                boolean authenticated=authenticateFace(capturedFace);
             }
         });
         photoCapture.captureImage();
-        boolean authenticated=authenticateFace(capturedFace);
+
     }
 
     private boolean authenticateFace(Bitmap capturedFace) {
@@ -83,7 +85,24 @@ public class PhotoCapture extends AppCompatActivity implements View.OnLayoutChan
                 List<KairosError> errors = response.body().getErrors();
                 List<KairosRecognizeImages> imagesResponse = response.body().getImages();
                 if(imagesResponse!=null){
+                    if(imagesResponse.get(0).getTransaction().getStatus().equals("success")){
+                        taskValidationProgress.dismiss();
+                        Intent photoAuthenticate=new Intent(PhotoCapture.this,SuccessActivity.class);
+                        startActivity(photoAuthenticate);
+                    }else{
+                        taskValidationProgress.dismiss();
+                        validated=false;
+                        Toast.makeText(getBaseContext(),"Authentication Validation Failed",Toast.LENGTH_SHORT).show();
+                        Intent contactSupportIntent=new Intent(PhotoCapture.this,ContactSupportActvity.class);
+                        startActivity(contactSupportIntent);
+                    }
 
+                }else{
+                    taskValidationProgress.dismiss();
+                    validated=false;
+                    Toast.makeText(getBaseContext(),"Authentication Validation Failed",Toast.LENGTH_SHORT).show();
+                    Intent contactSupportIntent=new Intent(PhotoCapture.this,ContactSupportActvity.class);
+                    startActivity(contactSupportIntent);
                 }
             }
 
@@ -93,6 +112,8 @@ public class PhotoCapture extends AppCompatActivity implements View.OnLayoutChan
                 taskValidationProgress.dismiss();
                 validated=false;
                 Toast.makeText(getBaseContext(),"Liveliness Validation Failed",Toast.LENGTH_SHORT).show();
+                Intent contactSupportIntent=new Intent(PhotoCapture.this,ContactSupportActvity.class);
+                startActivity(contactSupportIntent);
 
             }
         });
