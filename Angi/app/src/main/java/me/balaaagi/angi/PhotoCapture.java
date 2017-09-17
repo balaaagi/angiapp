@@ -42,6 +42,7 @@ public class PhotoCapture extends AppCompatActivity implements View.OnLayoutChan
         setContentView(R.layout.activity_photo_capture);
         photoCapture= (CameraView) findViewById(R.id.cameraAuthenticate);
         authenticatButton= (Button) findViewById(R.id.clicktoAunthenticate);
+        taskValidationProgress = new ProgressDialog(this);
         photoCapture.addOnLayoutChangeListener(this);
         authenticatButton.setOnClickListener(new View.OnClickListener() {
             @Override
