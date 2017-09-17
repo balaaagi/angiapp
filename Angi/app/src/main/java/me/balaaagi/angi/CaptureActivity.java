@@ -49,6 +49,7 @@ public class CaptureActivity extends AppCompatActivity implements View.OnLayoutC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capture);
         camera= (CameraView) findViewById(R.id.camera);
+        
         camera.addOnLayoutChangeListener(this);
         task1_tview= (TextView) findViewById(R.id.task1_tview);
         randomOrder=AngiUtils.getDualAuthenticationTypeOrder();

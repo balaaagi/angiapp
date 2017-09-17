@@ -12,12 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:text="Validate Your Liveliness"
+        android:drawableLeft="@mipmap/ic_launcher"
+        android:text="Facial AUTHENTICATE "
         android:textColor="@color/colorAccent"
         android:id="@+id/clicktoAunthenticate"/>
 
     <com.flurgle.camerakit.CameraView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/camera"
+        android:id="@+id/cameraAuthenticate"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
@@ -32,9 +33,9 @@
     <TextView
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:text="Type Movement To Authenticate"
+        android:text="Capture Your Face to Authenticate"
         android:textStyle="italic"
-        android:id="@+id/task1_tview"
+        android:id="@+id/authenticateTextView"
         android:textSize="27dp"
         android:gravity="center"
         android:textColor="@color/colorPrimary"
