@@ -22,6 +22,6 @@ public interface KairosApiInterface {
     @POST("detect")
     Call<DetectKairosResponse> detectFacialFeatures(@Header("Content-Type") String content_type,@Header("app_id") String app_id,@Header("app_key") String app_key, @Body DetectRequestModel requestModel);
 
-
+    @POST("recognize")
     Call<RecognizeKairosResponse> recognizeFace(@Header("Content-Type") String content_type, @Header("app_id") String app_id, @Header("app_key") String app_key, @Body RecognizeRequestModel requestModel);
 }
