@@ -2,6 +2,7 @@ package me.balaaagi.angi.network.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +11,11 @@ import java.util.List;
 
 public class KairosErrorResponse {
     @SerializedName("Errors")
-    List<KairosError> errors;
+    List<KairosError> errors=new ArrayList<>();
+
+    public KairosErrorResponse(List<KairosError> errors) {
+        this.errors = errors;
+    }
 
     public List<KairosError> getErrors() {
         return errors;
@@ -18,5 +23,10 @@ public class KairosErrorResponse {
 
     public void setErrors(List<KairosError> errors) {
         this.errors = errors;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

@@ -63,4 +63,8 @@ public class KairosDetectImages {
         this.faces = faces;
     }
 
+    @Override
+    public String toString() {
+        return getStatus();
+    }
 }
