@@ -4,6 +4,8 @@ import java.util.Map;
 
 import me.balaaagi.angi.network.models.DetectKairosResponse;
 import me.balaaagi.angi.network.models.DetectRequestModel;
+import me.balaaagi.angi.network.models.RecognizeKairosResponse;
+import me.balaaagi.angi.network.models.RecognizeRequestModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
@@ -21,4 +23,5 @@ public interface KairosApiInterface {
     Call<DetectKairosResponse> detectFacialFeatures(@Header("Content-Type") String content_type,@Header("app_id") String app_id,@Header("app_key") String app_key, @Body DetectRequestModel requestModel);
 
 
+    Call<RecognizeKairosResponse> recognizeFace(@Header("Content-Type") String content_type, @Header("app_id") String app_id, @Header("app_key") String app_key, @Body RecognizeRequestModel requestModel);
 }

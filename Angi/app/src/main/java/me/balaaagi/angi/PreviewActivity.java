@@ -1,6 +1,7 @@
 package me.balaaagi.angi;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -35,6 +36,7 @@ public class PreviewActivity extends AppCompatActivity {
     Bitmap bitmapOfFirstTask;
     ProgressDialog taskValidationProgress;
     int taskNo;
+    boolean validated=false;
     private StorageReference mStorageRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,42 +51,52 @@ public class PreviewActivity extends AppCompatActivity {
             return;
         }
 
-        mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://kolam-dd9a5.appspot.com");
-//        uploadFile();
         previewImage.setImageBitmap(bitmapOfFirstTask);
         boolean output=validateFirstTask();
+
         
     }
 
-    public void uploadFile(){
-        Uri file = Uri.fromFile(new File(String.valueOf(AngiUtils.getImageUri(this,bitmapOfFirstTask))));
-        if(AngiUtils.getImageUri(this,bitmapOfFirstTask)!=null){
-            StorageReference riversRef = mStorageRef.child("colorise/"+AngiUtils.getImageUri(this,bitmapOfFirstTask).getLastPathSegment());
-
-            riversRef.putFile(file)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // Get a URL to the uploaded content
-                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            Log.d("Preview ",downloadUrl.toString());
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Handle unsuccessful uploads
-                            // ...
-                            Log.d("Preview ","Upload Failed");
-                        }
-                    });
-
+    public void openNextActivity(boolean flag){
+        if(flag){
+            Intent photoAuthenticate=new Intent(this,PhotoCapture.class);
+            startActivity(photoAuthenticate);
         }else{
-            Log.d("Preview ","Upload Failed");
+            Intent contactSupportIntent=new Intent(this,ContactSupportActvity.class);
+            startActivity(contactSupportIntent);
         }
     }
+
+//    public void uploadFile(){
+//        Uri file = Uri.fromFile(new File(String.valueOf(AngiUtils.getImageUri(this,bitmapOfFirstTask))));
+//        if(AngiUtils.getImageUri(this,bitmapOfFirstTask)!=null){
+//            StorageReference riversRef = mStorageRef.child("colorise/"+AngiUtils.getImageUri(this,bitmapOfFirstTask).getLastPathSegment());
+//
+//            riversRef.putFile(file)
+//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                            // Get a URL to the uploaded content
+//                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+//                            Log.d("Preview ",downloadUrl.toString());
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception exception) {
+//                            // Handle unsuccessful uploads
+//                            // ...
+//                            Log.d("Preview ","Upload Failed");
+//                        }
+//                    });
+//
+//        }else{
+//            Log.d("Preview ","Upload Failed");
+//        }
+//    }
     private boolean validateFirstTask() {
         Log.d("Preview","Coming inside");
+
         KairosApiInterface kairosClient=APIClient.getRetrofitClient().create(KairosApiInterface.class);
         Call<DetectKairosResponse> detectKairosResponseCall=kairosClient.detectFacialFeatures("application/json",BuildConfig.KAIROS_APP_ID,BuildConfig.KAIROS_API_KEY,new DetectRequestModel(AngiUtils.bitMapToBase64(bitmapOfFirstTask)));
         Log.d("Preview",detectKairosResponseCall.request().url().toString());
@@ -115,39 +127,61 @@ public class PreviewActivity extends AppCompatActivity {
                             if(responseImage.getFaces().get(0).getAttributes().getLips().equals("Apart")){
                                 taskValidationProgress.dismiss();
                                 previewImage.setImageDrawable(getResources().getDrawable(R.drawable.tick_icon));
+                                Toast.makeText(getBaseContext(),"Liveliness Validation Successfull",Toast.LENGTH_SHORT).show();
+                                validated=true;
+                                openNextActivity(validated);
                             }else{
                                 taskValidationProgress.dismiss();
                                 previewImage.setImageDrawable(getResources().getDrawable(R.drawable.cross_icon));
+                                Toast.makeText(getBaseContext(),"Liveliness Validation Failed",Toast.LENGTH_SHORT).show();
+                                validated=false;
+                                openNextActivity(validated);
                             }
                         } else if (taskNo == 2) {
                             if((responseImage.getFaces().get(0).getYaw()>10)||(responseImage.getFaces().get(0).getYaw()<-10)){
                                 taskValidationProgress.dismiss();
                                 previewImage.setImageDrawable(getResources().getDrawable(R.drawable.tick_icon));
+                                Toast.makeText(getBaseContext(),"Liveliness Validation Successfull",Toast.LENGTH_SHORT).show();
+                                validated=true;
+                                openNextActivity(validated);
                             }else{
                                 taskValidationProgress.dismiss();
                                 previewImage.setImageDrawable(getResources().getDrawable(R.drawable.cross_icon));
+                                Toast.makeText(getBaseContext(),"Liveliness Validation Failed",Toast.LENGTH_SHORT).show();
+                                validated=false;
+                                openNextActivity(validated);
                             }
                         }else{
                             if((responseImage.getFaces().get(0).getYaw()>10)||(responseImage.getFaces().get(0).getYaw()<-10)){
                                 taskValidationProgress.dismiss();
                                 previewImage.setImageDrawable(getResources().getDrawable(R.drawable.tick_icon));
+                                Toast.makeText(getBaseContext(),"Liveliness Validation Successfull",Toast.LENGTH_SHORT).show();
+                                validated=true;
+                                openNextActivity(validated);
                             }else{
                                 taskValidationProgress.dismiss();
                                 previewImage.setImageDrawable(getResources().getDrawable(R.drawable.cross_icon));
+                                Toast.makeText(getBaseContext(),"Liveliness Validation Failed",Toast.LENGTH_SHORT).show();
+                                validated=false;
+                                openNextActivity(validated);
                             }
 
                         }
 //                        previewImage.setImageDrawable(getResources().getDrawable(R.drawable.tick_icon));
-                        Toast.makeText(getBaseContext(),"First Task Completed",Toast.LENGTH_SHORT).show();
+
                     }else{
                         taskValidationProgress.dismiss();
                         previewImage.setImageDrawable(getResources().getDrawable(R.drawable.cross_icon));
-                        Toast.makeText(getBaseContext(),"Seems Like You have Not Performed the Movement",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),"Liveliness Validation Failed",Toast.LENGTH_SHORT).show();
+                        validated=false;
+                        openNextActivity(validated);
                     }
                 }else{
                     taskValidationProgress.dismiss();
                     previewImage.setImageDrawable(getResources().getDrawable(R.drawable.cross_icon));
-                    Toast.makeText(getBaseContext(),"Seems Like You have Not Performed the Movement",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(),"Liveliness Validation Failed",Toast.LENGTH_SHORT).show();
+                    validated=false;
+                    openNextActivity(validated);
                 }
             }
 
@@ -155,10 +189,14 @@ public class PreviewActivity extends AppCompatActivity {
             public void onFailure(Call<DetectKairosResponse> call, Throwable t) {
                 Log.d("Preview",t.getMessage());
                 taskValidationProgress.dismiss();
-                Toast.makeText(getApplicationContext(),"Some Issue",Toast.LENGTH_SHORT).show();
+                previewImage.setImageDrawable(getResources().getDrawable(R.drawable.cross_icon));
+                validated=false;
+                Toast.makeText(getBaseContext(),"Liveliness Validation Failed",Toast.LENGTH_SHORT).show();
+                openNextActivity(validated);
             }
         });
 
-        return false;
+        return validated;
+
     }
 }
